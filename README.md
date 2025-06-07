@@ -1,110 +1,63 @@
-# 🧠 Mindset
+# 🧠 Mindset  
+A simple way to **track moods and thoughts** effortlessly.  
 
-**Mindset** is a simple, but meaningful way for people to express themselves.
-
----
-
-## 🚀 Features
-
-- Submit mood and mindset entries via a clean frontend form.
-- Store entries in a PocketBase collection (`mindsets`).
-- Backend API built with Express and Node.js.
-- PocketBase-admin-authenticated record creation for security.
-- Frontend served statically via Express.
+## 🚀 **Features**  
+✅ **Write down your thoughts** anytime  
+✅ **Log your moods** with simple entries  
+✅ **View trends** through charts & analytics  
+✅ **Fully self-hosted**—just run & use  
 
 ---
 
-## 📦 Tech Stack
+## 🛠 **How to Get Started**  
 
-- **Backend:** Node.js, Express, PocketBase SDK
-- **Database:** PocketBase (self-hosted or local)
-- **Frontend:** Vanilla HTML, JS
-- **Auth:** Admin login via PocketBase
-
----
-
-## 🛠️ Setup Instructions
-
-### 1. Clone the Repo
-
+### 1️⃣ **Clone & Run**  
 ```bash
 git clone https://github.com/petrusjohannesmaas/mindset.git
 cd mindset
-````
-
-### 2. Install Dependencies
-
-```bash
-npm install
+docker-compose up -d
 ```
-
-### 3. Setup Environment Variables
-
-Create a `.env` file:
-
-```env
-POCKETBASE_URL=http://127.0.0.1:8090
-POCKETBASE_ADMIN=test@admin.com
-POCKETBASE_ADMIN_PASS=adminpassword
-PORT=3000
-```
-
-Make sure your PocketBase instance is running locally on port 8090, and that the admin account exists with the credentials above.
-
-### 4. Run the App
-
-```bash
-node index.js
-```
-
-Visit `http://localhost:3000` to use the app.
+Then, open **`http://localhost:3000`** in your browser and create your private account. **That's it!**  
 
 ---
 
-## 📁 Project Structure
+## 📦 **Dockerized Setup (Behind the Scenes)**  
+Everything is handled inside a **Docker container** with **SQLite for data storage**.  
 
+### **Docker Compose Configuration (`docker-compose.yml`)**  
+```yaml
+---
+services:
+  mindset:
+    build: .
+    container_name: mindset_container
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./database:/app/database  # Persist entries
+    restart: unless-stopped
 ```
-mindset/
-├── public/
-│   └── index.html         # Frontend form
-├── .env                   # Environment variables
-├── index.js               # Express backend
-├── package.json
-```
+**No extra setup needed—users just run the command, access the browser, and start recording their mindset.**  
 
 ---
 
-## 🔒 Security Notes
-
-* Admin credentials are stored in `.env` and used server-side only.
-* Clients do **not** get direct access to PocketBase.
-* All mindset entries are created via the backend API for control and security.
-
----
-
-## 💡 Future Improvements
-
-* Add user login or admin dashboard
-* Add a feature to allow users to add images to their mindsets
-* Add a feature for sobriety tracking
-* Add integration for a buddy system
-* Add JWT or session authentication
-* Validate client tokens
-* Rate-limit or verify with reCAPTCHA
+## 📊 **How It Works**  
+- **All entries are saved** securely inside a local SQLite database.
+- **Data persists** even if the container restarts.
+- **Charting & reporting** shows mood trends over time.
 
 ---
 
-## 📜 License
-
-GNU General Public License v3.0 see [LICENSE](./LICENSE)
+## 🎯 **Future Improvements**  
+🔹 More detailed mood insights  
+🔹 Buddy system integration  
+🔹 Custom themes & UI enhancements
+🔹 Sobriety, mental health, physical health programs  
 
 ---
 
-## 🤝 Contributing
+## 📜 **License**  
+GNU General Public License v3.0  
+See [LICENSE](./LICENSE)  
 
-Pull requests are welcome! If you have ideas to make Mindset better, feel free to contribute.
-
-```
-
-Let me know if you'd like me to generate a `LICENSE` file or push this to a new GitHub repo (I can guide you).
-```
+---
