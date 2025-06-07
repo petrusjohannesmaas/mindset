@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Mindset Tracker</title>
 </head>
+
 <body>
     <h1>Submit Your Mindset</h1>
     <form id="mindsetForm">
@@ -12,6 +14,7 @@
     </form>
 
     <script>
+
         document.getElementById("mindsetForm").addEventListener("submit", async (e) => {
             e.preventDefault();
 
@@ -32,6 +35,23 @@
                 alert("Failed to save mindset.");
             }
         });
+        // Check if user is logged in
+        const token = localStorage.getItem('pb_token');
+
+        if (!token) {
+            window.location.href = "/login.html";
+        }
+
+        const res = await fetch('/api/mindsets', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': token
+            },
+            body: JSON.stringify(data)
+        });
+
     </script>
 </body>
+
 </html>

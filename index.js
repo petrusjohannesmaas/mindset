@@ -29,15 +29,42 @@ authenticate().catch(err => {
 // Route to handle mindset submissions
 app.post('/api/mindsets', async (req, res) => {
   const { description, mood } = req.body;
+  const token = req.headers['authorization'];
 
   try {
-    const record = await pb.collection('mindsets').create({ description, mood });
+    pb.authStore.save(token); // Use token from frontend
+
+    const userId = pb.authStore.record.id;
+
+    const record = await pb.collection('mindsets').create({
+      description,
+      mood,
+      user: userId
+    });
+
     res.status(200).json(record);
   } catch (err) {
     console.error(err);
-    res.status(500).json({ error: 'Failed to save mindset.' });
+    res.status(401).json({ error: 'Unauthorized or failed to save mindset.' });
   }
 });
+
+app.use((req, res, next) => {
+  const token = req.headers['authorization'];
+
+  if (!token) {
+    return res.status(401).json({ error: "Unauthorized" });
+  }
+
+  pb.authStore.save(token); // Validate user session
+
+  if (!pb.authStore.isValid) {
+    return res.status(401).json({ error: "Invalid token, please log in again." });
+  }
+
+  next();
+});
+
 
 app.listen(process.env.PORT, () => {
   console.log(`Server running at http://localhost:${process.env.PORT}`);
