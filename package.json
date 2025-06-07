@@ -1,0 +1,27 @@
+{
+  "name": "mindset",
+  "version": "0.1.0",
+  "description": "Mindset is a simple, but meaningful way for people to express themselves.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/petrusjohannesmaas/mindset.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "GNU General Public License v3.0",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/petrusjohannesmaas/mindset/issues"
+  },
+  "homepage": "https://github.com/petrusjohannesmaas/mindset#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.5.0",
+    "express": "^5.1.0",
+    "pocketbase": "^0.26.1"
+  }
+}
