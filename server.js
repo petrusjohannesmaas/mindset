@@ -71,6 +71,20 @@ app.post("/add-post", (req, res) => {
     res.send("Post saved!");
 });
 
+app.get("/metrics", (req, res) => {
+    if (!req.session.username) return res.redirect("/login");
+    res.sendFile(path.join(__dirname, "public/metrics.html"));
+});
+
+app.get("/get-posts", (req, res) => {
+    const username = req.session.username;
+    if (!username) return res.status(401).send("Unauthorized");
+
+    const user = db.prepare("SELECT id FROM users WHERE username = ?").get(username);
+    const posts = db.prepare("SELECT id, description, mood FROM posts WHERE user_id = ?").all(user.id);
+
+    res.json(posts);
+});
 
 
 app.listen(3000, () => console.log("Server running at http://localhost:3000"));

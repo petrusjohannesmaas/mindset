@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Mindset Metrics</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <h2>Your Posts</h2>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Description</th>
+                <th>Mood</th>
+            </tr>
+        </thead>
+        <tbody id="posts"></tbody>
+    </table>
+
+    <h2>Mood Trends</h2>
+    <canvas id="moodChart"></canvas>
+
+    <button onclick="window.location.href='/home'">Back to Home</button>
+
+    <script>
+        fetch("/get-posts")
+            .then(res => res.json())
+            .then(data => {
+                const postsTable = document.getElementById("posts");
+                const moodData = { labels: [], values: [] };
+
+                data.forEach(post => {
+                    postsTable.innerHTML += `<tr><td>${post.description}</td><td>${post.mood}</td></tr>`;
+                    moodData.labels.push(post.id);
+                    moodData.values.push(post.mood);
+                });
+
+                new Chart(document.getElementById("moodChart"), {
+                    type: "line",
+                    data: { labels: moodData.labels, datasets: [{ label: "Mood", data: moodData.values }] }
+                });
+            });
+    </script>
+</body>
+</html>
