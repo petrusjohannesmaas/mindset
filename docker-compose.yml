@@ -1,0 +1,12 @@
+---
+services:
+  mindset:
+    build: .
+    ports:
+      - "3000:3000"
+    volumes:
+      - mindset-data:/app/mindset.sqlite
+    restart: unless-stopped
+
+volumes:
+  mindset-data:
