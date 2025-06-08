@@ -1,11 +1,13 @@
 ---
 services:
   mindset:
+    container_name: mindset-app
+    image: mindset:v1
     build: .
     ports:
       - "3000:3000"
     volumes:
-      - mindset-data:/app/mindset.sqlite
+      - mindset-data:/app/data
     restart: unless-stopped
 
 volumes:

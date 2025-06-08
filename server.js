@@ -3,9 +3,37 @@ const Database = require("better-sqlite3");
 const bcrypt = require("bcrypt");
 const session = require("express-session");
 const path = require("path");
-
+const fs = require("fs");
 const app = express();
-const db = new Database("mindset.sqlite");
+
+// Ensure the database file exists before opening it
+const dbFile = "/app/data/mindset.sqlite";
+
+if (!fs.existsSync(dbFile)) {
+    console.log("Database file not found. Creating new database...");
+    fs.writeFileSync(dbFile, "");
+}
+
+// Initialize the database
+const db = new Database(dbFile);
+
+// Create tables if they don’t exist
+db.exec(`
+    CREATE TABLE IF NOT EXISTS users (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        username TEXT UNIQUE NOT NULL,
+        password TEXT NOT NULL
+        );
+        CREATE TABLE IF NOT EXISTS posts (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            description TEXT NOT NULL,
+            mood INTEGER NOT NULL CHECK(mood BETWEEN 1 AND 5),
+            user_id INTEGER NOT NULL,
+            FOREIGN KEY(user_id) REFERENCES users(id)
+            );
+            `);
+
+console.log("Database initialized successfully!");
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
