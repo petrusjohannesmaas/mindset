@@ -1,0 +1,26 @@
+{
+  "name": "mindset",
+  "version": "1.0.0",
+  "description": "A simple way to **track moods and thoughts** effortlessly.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/petrusjohannesmaas/mindset.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "GNU GENERAL PUBLIC LICENSE v3",
+  "bugs": {
+    "url": "https://github.com/petrusjohannesmaas/mindset/issues"
+  },
+  "homepage": "https://github.com/petrusjohannesmaas/mindset#readme",
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "better-sqlite3": "^11.10.0",
+    "express": "^5.1.0",
+    "express-session": "^1.18.1"
+  }
+}
